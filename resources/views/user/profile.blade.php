@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-md-10 ms-sm-auto d-flex justify-content-center my-3">
                 @if ($user->avatar === null)
-                    <img class="rounded-circle" src="{{ Storage::disk('s3')->url('default.jpg') }}" alt="プロフィール画像" width="150"
-                        height="150">
-                    {{-- <img class="rounded-circle" src="{{ asset('storage/profiles/default.jpg') }}" alt="プロフィール画像" width="150"
+                    {{-- <img class="rounded-circle" src="{{ Storage::disk('s3')->url('default.jpg') }}" alt="プロフィール画像" width="150"
                         height="150"> --}}
+                    <img class="rounded-circle" src="{{ asset('img/default.jpg') }}" alt="プロフィール画像" width="150"
+                        height="150">
                 @else
                     <img class="rounded-circle" src="{{ Storage::disk('s3')->url($user->avatar) }}" alt="プロフィール画像"
                         width="150" height="150">

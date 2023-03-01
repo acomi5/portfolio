@@ -47,7 +47,6 @@ class UserController extends Controller
             'avatar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // if ($request->file('avatar')->isValid()) {
         if ($file = $request->avatar) {
             $path = Storage::disk('s3')->putFile('/', $file, 'public');
             $user->avatar = Storage::disk('s3')->url($path);

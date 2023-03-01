@@ -104,7 +104,6 @@ class PostController extends Controller
             'image' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // if ($request->file('image')->isValid()) {
         if ($file = $request->image) {
             $path = Storage::disk('s3')->putFile('/', $file, 'public');
             $post->image = Storage::disk('s3')->url($path);
@@ -116,7 +115,6 @@ class PostController extends Controller
         $post->user_id = Auth::id();
         $post->save();
 
-        // return to_route('home');
         return back();
     }
 
