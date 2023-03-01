@@ -47,10 +47,13 @@ class UserController extends Controller
             'avatar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        // if ($request->file('avatar')->isValid()) {
         if ($file = $request->avatar) {
-            $name = $file->hashName();
-            $file->move('storage/profiles', $name);
-            $user->avatar = $name;
+            $path = Storage::disk('s3')->putFile('/', $file, 'public');
+            $user->avatar = Storage::disk('s3')->url($path);
+            // $name = $file->hashName();
+            // $file->move('storage/profiles', $name);
+            $user->avatar = $path;
         }
         $user->name = $request->input('name');
         $user->email = $request->input('email');

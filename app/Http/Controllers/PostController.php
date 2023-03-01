@@ -54,9 +54,11 @@ class PostController extends Controller
         $post = new Post();
 
         $file = $request->file('image');
-        $name = $file->hashName();
-        $file->move('storage/images', $name);
-        $post->image = $name;
+        $path = Storage::disk('s3')->putFile('/', $file, 'public');
+        $post->image = Storage::disk('s3')->url($path);
+        // $name = $file->hashName();
+        // $file->move('storage/images', $name);
+        $post->image = $path;
 
         $post->comment = $request->input('comment');
         $post->user_id = Auth::id();
@@ -102,10 +104,13 @@ class PostController extends Controller
             'image' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        // if ($request->file('image')->isValid()) {
         if ($file = $request->image) {
-            $name = $file->hashName();
-            $file->move('storage/images', $name);
-            $post->image = $name;
+            $path = Storage::disk('s3')->putFile('/', $file, 'public');
+            $post->image = Storage::disk('s3')->url($path);
+            // $name = $file->hashName();
+            // $file->move('storage/images', $name);
+            $post->image = $path;
         }
         $post->comment = $request->input('comment');
         $post->user_id = Auth::id();

@@ -5,11 +5,15 @@
         <div class="row">
             <div class="col-md-10 ms-sm-auto d-flex justify-content-center my-3">
                 @if ($user->avatar === null)
-                    <img class="rounded-circle" src="{{ asset('storage/profiles/default.jpg') }}" alt="プロフィール画像" width="150"
+                    <img class="rounded-circle" src="{{ Storage::disk('s3')->url('default.jpg') }}" alt="プロフィール画像" width="150"
                         height="150">
+                    {{-- <img class="rounded-circle" src="{{ asset('storage/profiles/default.jpg') }}" alt="プロフィール画像" width="150"
+                        height="150"> --}}
                 @else
-                    <img class="rounded-circle" src="{{ asset('storage/profiles/' . $user->avatar) }}" alt="プロフィール画像"
+                    <img class="rounded-circle" src="{{ Storage::disk('s3')->url($user->avatar) }}" alt="プロフィール画像"
                         width="150" height="150">
+                    {{-- <img class="rounded-circle" src="{{ asset('storage/profiles/' . $user->avatar) }}" alt="プロフィール画像"
+                        width="150" height="150"> --}}
                 @endif
                 <div class="mt-3 ms-5">
                     {{ $user->name }}
@@ -32,7 +36,8 @@
                             @include('modal.add_post_edit')
                             <a href="#" class="nav-link active pt-1" data-bs-toggle="modal"
                                 data-bs-target="#addPostShowModal{{ $post->id }}">
-                                <img src="{{ asset('storage/images/' . $post->image) }}">
+                                <img src="{{ Storage::disk('s3')->url($post->image) }}">
+                                {{-- <img src="{{ asset('storage/images/' . $post->image) }}"> --}}
                             </a>
                         @endif
                     </div>

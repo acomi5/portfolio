@@ -19,11 +19,15 @@
                     <div class="card-header text-muted small d-flex justify-content-between">
                         <div class="col d-flex justify-content-start align-items-center">
                             @if ($post->user->avatar === null)
-                                <img class="rounded-circle" src="{{ asset('storage/profiles/default.jpg') }}" alt="プロフィール画像"
+                                <img class="rounded-circle" src="{{ Storage::disk('s3')->url('default.jpg') }}" alt="プロフィール画像"
                                     width="32" height="32">
+                                {{-- <img class="rounded-circle" src="{{ asset('storage/profiles/default.jpg') }}" alt="プロフィール画像"
+                                    width="32" height="32"> --}}
                             @else
-                                <img class="rounded-circle" src="{{ asset('storage/profiles/' . $post->user->avatar) }}"
+                                <img class="rounded-circle" src="{{ Storage::disk('s3')->url($post->user->avatar) }}"
                                     alt="プロフィール画像" width="32" height="32">
+                                {{-- <img class="rounded-circle" src="{{ asset('storage/profiles/' . $post->user->avatar) }}"
+                                    alt="プロフィール画像" width="32" height="32"> --}}
                             @endif
                             <div class="ms-2">{{ $post->user->name }}
                             </div>
@@ -36,7 +40,8 @@
                         @endif
                     </div>
                     <div class="card-body p-0">
-                        <img src="{{ asset('storage/images/' . $post->image) }}">
+                        <img src="{{ Storage::disk('s3')->url($post->image) }}">
+                        {{-- <img src="{{ asset('storage/images/' . $post->image) }}"> --}}
                         <div class="card-text py-2 px-3">
                             @if ($post->likes()->where('user_id', Auth::user()->id)->count() == 1)
                                 <a href="{{ route('unlike', $post) }}">
