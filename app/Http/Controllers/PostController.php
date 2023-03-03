@@ -107,8 +107,6 @@ class PostController extends Controller
         if ($file = $request->image) {
             $path = Storage::disk('s3')->putFile('/', $file, 'public');
             $post->image = Storage::disk('s3')->url($path);
-            // $name = $file->hashName();
-            // $file->move('storage/images', $name);
             $post->image = $path;
         }
         $post->comment = $request->input('comment');

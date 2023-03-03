@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
+use LDAP\Result;
 
 class UserController extends Controller
 {
@@ -50,8 +51,6 @@ class UserController extends Controller
         if ($file = $request->avatar) {
             $path = Storage::disk('s3')->putFile('/', $file, 'public');
             $user->avatar = Storage::disk('s3')->url($path);
-            // $name = $file->hashName();
-            // $file->move('storage/profiles', $name);
             $user->avatar = $path;
         }
         $user->name = $request->input('name');

@@ -20,15 +20,11 @@
                         <div class="text-center">
                             <label for="avatar">
                                 @if ($user->avatar === null)
-                                    {{-- <img class="rounded-circle" src="{{ Storage::disk('s3')->url('default.jpg') }}"
-                                        alt="プロフィール画像" width="150" height="150"> --}}
-                                    <img class="rounded-circle" src="{{ asset('img/default.jpg') }}"
-                                        alt="プロフィール画像" width="150" height="150">
+                                    <img class="rounded-circle" src="{{ asset('img/default.jpg') }}" alt="プロフィール画像"
+                                        width="150" height="150">
                                 @else
                                     <img class="rounded-circle" src="{{ Storage::disk('s3')->url($user->avatar) }}"
                                         alt="プロフィール画像" width="150" height="150">
-                                    {{-- <img class="rounded-circle" src="{{ asset('storage/profiles/' . $user->avatar) }}"
-                                        alt="プロフィール画像" width="150" height="150"> --}}
                                 @endif
                                 <input id="avatar" name="avatar" type="file"
                                     class="form-control @error('avatar') is-invalid @enderror" style="display:none;"

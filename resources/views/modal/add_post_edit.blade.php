@@ -25,7 +25,6 @@
                             @method('put')
                             @if ($post->image)
                                 <img src="{{ Storage::disk('s3')->url($post->image) }}" style="height:350px">
-                                {{-- <img src="{{ asset('storage/images/' . $post->image) }}" style="height:350px"> --}}
                             @endif
                             <input class="my-2" id="image" type="file" name="image">
                     </div>
